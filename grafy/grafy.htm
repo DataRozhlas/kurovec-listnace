@@ -1,4 +1,76 @@
-﻿import "./byeie"; // loučíme se s IE
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+
+<style type="text/css">
+
+#chart {
+    max-width: 100%;
+    margin: 1em auto;
+}
+
+.small {
+    min-width: 350px;
+    height: 500px;
+    margin: 1em auto;
+    float: left;
+}
+
+.smaller {
+    min-width: 350px;
+    height: 408px;
+    margin: 1em auto;
+    float: left;
+}
+
+#chartainer {
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+</style>
+
+</head>
+<body>
+
+<h2>Zalesňování</h2>
+
+Bez přirozené obnovy
+
+<div class="chartainer">
+<div class="chart smaller" id="zalesnovani"></div>
+<div class="chart small" id="zalesnovanidruhy"></div>
+</div>
+
+<div style="padding-top:550px"></div>
+
+<h2 style="display: initial">Těžba</h2>
+
+<div class="chartainer">
+<div class="chart smaller" id="tezba"></div>
+<div class="chart small" id="tezbadruhy"></div>
+</div>
+
+<i>Graf ukazuje pouze druhy stromů s podílem nejméně jednoho procenta na celkové těžbě, součet proto nedává 100 procent.</i>
+
+<div style="padding-top:550px"></div>
+
+<div style="width: 600px; height: 400px" id="holiny"></div>
+
+<div style="width: 1000px; height: 500px" id="nahodila"></div>
+
+<div style="width: 1000px; height: 500px" id="cena"></div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+
+<script type="text/javascript">
 
 var colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
 
@@ -656,16 +728,6 @@ var datacena4 = datacena.map(function(value,index) {return value[4]});
 
 var datacena5 = datacena.map(function(value,index) {return value[5]});
 
-var dataplocha = [20.0,20.1,20.0,20.0,20.1,20.2,20.3,20.4,20.5,20.7,20.8,20.9,21.1,21.2,21.3,21.5,21.6,21.7,22.0,22.1,22.3,22.5,22.8,23.2,23.4,23.7,23.9,24.2,24.5,24.8,25.1,25.3,25.6,25.9,26.2,26.5,26.7,27.0,27.3];
-
-var rokyplocha = [1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018];
-
-var dataprodejjehl = [3.53,3.67,4.22,4.85,5.13,5.86,5.36];
-
-var dataprodejlist = [0.39,0.48,0.42,0.24,0.19,0.09,0.04];
-
-var rokyprodej = [2013,2014,2015,2016,2017,2018,2019];
-
 Highcharts.chart('zalesnovani', {
     chart: {
         type: 'line'
@@ -997,7 +1059,7 @@ Highcharts.chart('holiny', {
     },
 
     title: {
-        text: 'Plocha holin'
+        text: 'Rozloha holin'
     },
 
     subtitle: {
@@ -1058,7 +1120,7 @@ Highcharts.chart('holiny', {
         data: dataholinyprirustek,
         color: colors[8]
     }, {
-        name: 'plocha holin ke konci roku',
+        name: 'rozloha holin ke konci roku',
         type: 'line',
         data: dataholinyrozloha,
         color: kontrast[2]
@@ -1071,7 +1133,7 @@ Highcharts.chart('nahodila', {
     },
 
     title: {
-        text: 'Nahodilá těžba dřeva'
+        text: 'Nahodilá těžba'
     },
 
     subtitle: {
@@ -1126,11 +1188,11 @@ Highcharts.chart('cena', {
     },
 
     title: {
-        text: 'Průměrná cena surového smrkového dřeva'
+        text: 'Cena surového smrkového dřeva'
     },
 
     subtitle: {
-        text: 'kategorie <i>vlastníci</i>'
+        text: ''
     },
 
     xAxis: {
@@ -1207,116 +1269,5 @@ Highcharts.chart('cena', {
     }]
 });
 
-Highcharts.chart('plocha', {
-    chart: {
-        type: 'line'
-    },
-
-    title: {
-        text: 'Plocha listnatých lesů'
-    },
-
-    subtitle: {
-        text: ''
-    },
-
-    xAxis: {
-        categories: rokyplocha
-    },
-
-    yAxis: {
-        title: {
-            text: ''
-        },
-        labels: {
-            formatter: function () {
-                return this.value + ' %';
-            }
-        },
-        min: 0
-    },
-
-    tooltip: {
-        valueSuffix: ' %'
-    },
-
-    exporting: {
-        enabled: false
-    },
-
-    legend: {
-        enabled: false
-    },
-
-    credits: {
-        href: 'http://eagri.cz/public/app/uhul/SIL/Default.cshtml',
-        text: 'Zdroj: ÚHÚL'
-    },
-
-    plotOptions: {
-        line: {
-            marker: {
-                symbol: 'circle'
-            }
-        }
-    },
-
-    series: [{
-        name: 'plocha listnatých lesů',
-        data: dataplocha,
-        color: colors[7]
-    }]
-});
-
-Highcharts.chart('prodej', {
-    chart: {
-        type: 'column'
-    },
-
-    title: {
-        text: 'Prodej dřeva'
-    },
-
-    subtitle: {
-        text: 'Surové dříví nakoupené v ČR od největších společností obchodujících se dřevem'
-    },
-
-    xAxis: {
-        categories: rokyprodej
-    },
-
-    yAxis: {
-        title: {
-            text: ''
-        },
-        labels: {
-            formatter: function () {
-                return this.value + ' mil. m³';
-            }
-        },
-        min: 0
-    },
-
-    tooltip: {
-        valueSuffix: ' mil. m³'
-    },
-
-    exporting: {
-        enabled: false
-    },
-
-    credits: {
-        href: 'https://www.czso.cz/csu/czso/lesnictvi-2019',
-        text: 'Zdroj: ČSÚ'
-    },
-
-    series: [{
-        name: 'jehličnaté',
-        data: dataprodejjehl,
-        color: colors[11]
-    }, {
-        name: 'listnaté',
-        data: dataprodejlist,
-        color: colors[7]
-    }]
-});
+</script>
+</html>
